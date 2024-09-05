@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Claim Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin: 0;
+        }
+        h4 {
+            color: #555;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"],
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #e9f5ff;
+            border: 1px solid #d0e6ff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        function validateAge() {
+            var age = document.getElementById("age").value;
+            var smokingOption = document.querySelector("#lifestyle_habits option[value='smoking']");
+            var drinkingOption = document.querySelector("#lifestyle_habits option[value='drinking']");
+            var submitButton = document.querySelector("input[type='submit']");
+
+            if (age < 21) {
+                smokingOption.disabled = true;
+                drinkingOption.disabled = true;
+                if (smokingOption.selected) smokingOption.selected = false;
+                if (drinkingOption.selected) drinkingOption.selected = false;
+            } else {
+                smokingOption.disabled = false;
+                drinkingOption.disabled = false;
+            }
+
+            if (age > 60) {
+                submitButton.disabled = true;
+                alert("Age must be 60 or below.");
+            } else {
+                submitButton.disabled = false;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("age").addEventListener("input", validateAge);
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Insurance Claim Prediction Form</h2>
+        <form action="/" method="POST">
+            <h4>Enter Your Age</h4>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+
+            <h4>Select Gender</h4>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <h4>Specify If Members Have Any Pre-existing Diseases</h4>
+        <label for="medical_history">Medical History:</label>
+        <select id="medical_history" name="medical_history" multiple required>
+            <option value="none">None</option>
+            <option value="diabetes">Diabetes</option>
+            <option value="hypertension">Hypertension</option>
+            <option value="asthma">Asthma</option>
+            <option value="heart disease">Heart Disease</option>
+            <option value="other">other</option>
+        </select><br><br>
+
+        <h4>Enter Your Occupation Based on Risk Level</h4>                  
+            <label for="occupation">Occupation:</label>
+            <select id="occupation" name="occupation">
+                <option value="student">Student</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Software Developer">Software Developer</option>
+                <option value="Librarian">Librarian</option>
+                <option value="Graphic Designer">Graphic Designer</option>
+                <option value="Writer">Writer</option>
+                <option value="Data Analyst">Data Analyst</option>
+                <option value="Receptionist">Receptionist</option>
+                <option value="HR Specialist">HR Specialist</option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="Pharmacist">Pharmacist</option>
+                <option value="Research Scientist">Research Scientist</option>
+                <option value="Financial Analyst">Financial Analyst</option>
+                <option value="Other (Low risk)">Other (Low risk)</option>
+                <option value="Construction Worker">Construction Worker</option>
+                <option value="Electrician">Electrician</option>
+                <option value="Mechanic">Mechanic</option>
+                <option value="Carpenter">Carpenter</option>
+                <option value="Plumber">Plumber</option>
+                <option value="Chef">Chef</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Truck Driver">Truck Driver</option>
+                <option value="Warehouse Worker">Warehouse Worker</option>
+                <option value="Delivery Driver">Delivery Driver</option>
+                <option value="Fitness Trainer">Fitness Trainer</option>
+                <option value="Bartender">Bartender</option>
+                <option value="Event Planner">Event Planner</option>
+                <option value="Other (Moderate risk)">Other (Moderate risk)</option>
+                <option value="Firefighter">Firefighter</option>
+                <option value="Police Officer">Police Officer</option>
+                <option value="Pilot">Pilot</option>
+                <option value="Miner">Miner</option>
+                <option value="Roofer">Roofer</option>
+                <option value="Oil Rig Worker">Oil Rig Worker</option>
+                <option value="Crane Operator">Crane Operator</option>
+                <option value="Fisherman">Fisherman</option>
+                <option value="Soldier">Soldier</option>
+                <option value="Window Cleaner (High Rise)">Window Cleaner (High Rise)</option>
+                <option value="Logger">Logger</option>
+                <option value="Welder">Welder</option>
+                <option value="Scaffolder">Scaffolder</option>
+                <option value="Other (High risk)">Other (High risk)</option>
+            
+                       
+        </select>
+        
+
+        <h4>Enter Your Lifestyle Habits</h4>
+            <label for="lifestyle_habits">Lifestyle Habits:</label>
+            <select id="lifestyle_habits" name="lifestyle_habits" multiple required>
+                <option value="smoking">Smoking</option>
+                <option value="drinking">Drinking</option>
+                <option value="exercise">Exercise</option>
+                <option value="none">None</option>
+            </select>
+
+            <h4>Enter Your City Tier</h4>
+<label for="city">City Tier:</label>
+<select id="city" name="city" required>
+    <option value="Mumbai">Mumbai</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Bengaluru">Bengaluru</option>
+    <option value="Hyderabad">Hyderabad</option>
+    <option value="Chennai">Chennai</option>
+    <option value="Kolkata">Kolkata</option>
+    <option value="Pune">Pune</option>
+    <option value="Ahmedabad">Ahmedabad</option>
+    <option value="Surat">Surat</option>
+    <option value="Jaipur">Jaipur</option>
+    <option value="Lucknow">Lucknow</option>
+    <option value="Kanpur">Kanpur</option>
+    <option value="Nagpur">Nagpur</option>
+    <option value="Visakhapatnam">Visakhapatnam</option>
+    <option value="Bhopal">Bhopal</option>
+    <option value="Patna">Patna</option>
+    <option value="Vadodara">Vadodara</option>
+    <option value="Indore">Indore</option>
+    <option value="Thane">Thane</option>
+    <option value="Agra">Agra</option>
+    <option value="Nashik">Nashik</option>
+    <option value="Faridabad">Faridabad</option>
+    <option value="Meerut">Meerut</option>
+    <option value="Jabalpur">Jabalpur</option>
+    <option value="Coimbatore">Coimbatore</option>
+    <option value="Guwahati">Guwahati</option>
+    <option value="Gwalior">Gwalior</option>
+    <option value="Vijayawada">Vijayawada</option>
+    <option value="Mysore">Mysore</option>
+    <option value="Ranchi">Ranchi</option>
+    <option value="Raipur">Raipur</option>
+    <option value="Kochi">Kochi</option>
+    <option value="Kozhikode">Kozhikode</option>
+    <option value="Hubli-Dharwad">Hubli-Dharwad</option>
+    <option value="Belgaum">Belgaum</option>
+    <option value="Jammu">Jammu</option>
+    <option value="Jodhpur">Jodhpur</option>
+    <option value="Tiruchirappalli">Tiruchirappalli</option>
+    <option value="Bareilly">Bareilly</option>
+</select>
+
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction is not none %}
+    <div class="result">
+        <h3>Entered Values</h3>
+        <table>
+            <tr><th>Attribute</th><th>Value</th></tr>
+            <tr><td>Age</td><td>{{ age }}</td></tr>
+            <tr><td>Gender</td><td>{{ gender }}</td></tr>
+            <tr><td>Medical History</td><td>{{ medical_history }}</td></tr>                           
+            <tr><td>Occupation</td><td>{{ occupation_name }}</td></tr>
+            <tr><td>Lifestyle Habits</td><td>{{ lifestyle_habits }}</td></tr>
+            <tr><td>City</td><td>{{ city_name }}</td></tr>
+        </table>
+
+        <h3>Prediction Result</h3>
+        <p><strong>Claim Prediction:</strong> {% if prediction == 1 %} Will claim {% else %} Will not claim {% endif %}</p>
+        <p><strong>Probability:</strong> {{ (probability_claim if prediction == 1 else probability_no_claim) * 100 }}%</p>
+    </div>
+    {% endif %}
+    </div>
+</body>
+</html>
